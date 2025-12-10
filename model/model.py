@@ -53,19 +53,28 @@ class Model:
         return minori, maggiori
 
     def cammino_minimo(self, soglia):
-        maggiori = []
-        for el in self.G.edges(data='peso'):
-            if el[2] > soglia:
-                maggiori.append(el)
+        peso_minimo = float('inf')
+        percorso = None
 
-        cammino_minimo = 0
+        for node in self.G.nodes():
+            vicini_validi = []
+            for neighbor in self.G.neighbors(node):
+                peso_arco = self.G[node][neighbor]['peso']
+                if peso_arco > soglia:
+                    vicini_validi.append((neighbor, peso_arco))
 
-        for el1 in maggiori:
-            for el2 in maggiori:
-                if el1 != el2 and (el1[0] == el2[0] or el1[1] == el2[1] or el1[0] == el2[1] or el1[1] == el2[0]):
-                    if cammino_minimo == 0:
-                        cammino_minimo = [el1, el2]
-                    elif cammino_minimo[0][2] + cammino_minimo[1][2] > el1[2] + el2[2]:
-                        cammino_minimo = [el1, el2]
+            if len(vicini_validi) < 2:
+                continue
 
-        return cammino_minimo[0], cammino_minimo[1]
+            vicini_validi.sort(key=lambda x: x[1])
+            v1, peso1 = vicini_validi[0]
+            v2, peso2 = vicini_validi[1]
+            somma = peso1 + peso2
+
+            if somma < peso_minimo:
+                peso_minimo = somma
+                arco1 = (v1, node, peso1)
+                arco2 = (node, v2, peso2)
+                percorso = (arco1, arco2)
+
+        return percorso
