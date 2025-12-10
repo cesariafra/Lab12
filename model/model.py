@@ -69,6 +69,3 @@ class Model:
                         cammino_minimo = [el1, el2]
 
         return cammino_minimo[0], cammino_minimo[1]
-
-    """Implementare la parte di ricerca del cammino minimo"""
-    # TODO

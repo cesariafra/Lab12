@@ -59,6 +59,3 @@ class Controller:
         self._view.lista_visualizzazione_3.controls.append(ft.Text(f"{p1[0]} --> {p1[1]} | Peso: {p1[2]}"))
         self._view.lista_visualizzazione_3.controls.append(ft.Text(f"{p2[0]} --> {p2[1]} | Peso: {p2[2]}"))
         self._view.page.update()
-    """Implementare la parte di ricerca del cammino minimo"""
-    # TODO
-
