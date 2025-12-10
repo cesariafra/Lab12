@@ -52,5 +52,23 @@ class Model:
 
         return minori, maggiori
 
+    def cammino_minimo(self, soglia):
+        maggiori = []
+        for el in self.G.edges(data='peso'):
+            if el[2] > soglia:
+                maggiori.append(el)
+
+        cammino_minimo = 0
+
+        for el1 in maggiori:
+            for el2 in maggiori:
+                if el1 != el2 and (el1[0] == el2[0] or el1[1] == el2[1] or el1[0] == el2[1] or el1[1] == el2[0]):
+                    if cammino_minimo == 0:
+                        cammino_minimo = [el1, el2]
+                    elif cammino_minimo[0][2] + cammino_minimo[1][2] > el1[2] + el2[2]:
+                        cammino_minimo = [el1, el2]
+
+        return cammino_minimo[0], cammino_minimo[1]
+
     """Implementare la parte di ricerca del cammino minimo"""
     # TODO
